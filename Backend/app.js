@@ -6,10 +6,17 @@ dotenv.config();
 
 const app = express()
 
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT || 8080
 
-database
+async function startServer() {
+    try {
+        await database;
+        app.listen(PORT, () => {
+            console.log(`Server running at port ${PORT}!`);
+        });
+    } catch (error) {
+        console.error('Error initializing database:', error);
+    }
+}
 
-app.listen(PORT, () => {
-    console.log(`server listening at port ${PORT}...`)
-})
+startServer()
