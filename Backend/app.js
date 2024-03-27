@@ -2,6 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv');
 const database = require('./database');
 const cors = require('cors')
+const { readdirSync } = require('fs')
 
 dotenv.config();
 
@@ -23,3 +24,5 @@ async function startServer() {
 }
 
 startServer()
+
+readdirSync('./routes').map((route) => app.use('/', require(`./routes/${route}`)))
